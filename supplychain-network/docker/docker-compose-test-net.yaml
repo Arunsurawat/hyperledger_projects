@@ -6,18 +6,18 @@
 version: '2'
 
 volumes:
-  orderer.example.com:
-  peer0.org1.example.com:
-  peer1.org1.example.com:
-  peer0.org2.example.com:
+  orderer.supplychain.com:
+  peer0.org1.supplychain.com:
+  peer1.org1.supplychain.com:
+  peer0.org2.supplychain.com:
 
 networks:
   test:
 
 services:
 
-  orderer.example.com:
-    container_name: orderer.example.com
+  orderer.supplychain.com:
+    container_name: orderer.supplychain.com
     image: hyperledger/fabric-orderer:$IMAGE_TAG
     environment:
       - FABRIC_LOGGING_SPEC=INFO
@@ -47,17 +47,17 @@ services:
     command: orderer
     volumes:
         - ../system-genesis-block/genesis.block:/var/hyperledger/orderer/orderer.genesis.block
-        - ../organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp:/var/hyperledger/orderer/msp
-        - ../organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/:/var/hyperledger/orderer/tls
-        - orderer.example.com:/var/hyperledger/production/orderer
+        - ../organizations/ordererOrganizations/supplychain.com/orderers/orderer.supplychain.com/msp:/var/hyperledger/orderer/msp
+        - ../organizations/ordererOrganizations/supplychain.com/orderers/orderer.supplychain.com/tls/:/var/hyperledger/orderer/tls
+        - orderer.supplychain.com:/var/hyperledger/production/orderer
     ports:
       - 7050:7050
       - 7053:7053
     networks:
       - test
 
-  peer0.org1.example.com:
-    container_name: peer0.org1.example.com
+  peer0.org1.supplychain.com:
+    container_name: peer0.org1.supplychain.com
     image: hyperledger/fabric-peer:$IMAGE_TAG
     environment:
       #Generic peer variables
@@ -74,21 +74,21 @@ services:
       - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
       - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
       # Peer specific variabes
-      - CORE_PEER_ID=peer0.org1.example.com
+      - CORE_PEER_ID=peer0.org1.supplychain.com
       # my code 
       - CORE_PEER_TLS_CLIENTAUTHREQUIRED=true
-      - CORE_PEER_ADDRESS=peer0.org1.example.com:7051
+      - CORE_PEER_ADDRESS=peer0.org1.supplychain.com:7051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:7051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.org1.example.com:7052
+      - CORE_PEER_CHAINCODEADDRESS=peer0.org1.supplychain.com:7052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:7052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org1.example.com:7051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.example.com:7051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org1.supplychain.com:7051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org1.supplychain.com:7051
       - CORE_PEER_LOCALMSPID=Org1MSP
     volumes:
         - /var/run/docker.sock:/host/var/run/docker.sock
-        - ../organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp:/etc/hyperledger/fabric/msp
-        - ../organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls:/etc/hyperledger/fabric/tls
-        - peer0.org1.example.com:/var/hyperledger/production
+        - ../organizations/peerOrganizations/org1.supplychain.com/peers/peer0.org1.supplychain.com/msp:/etc/hyperledger/fabric/msp
+        - ../organizations/peerOrganizations/org1.supplychain.com/peers/peer0.org1.supplychain.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.org1.supplychain.com:/var/hyperledger/production
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: peer node start
     ports:
@@ -96,8 +96,8 @@ services:
     networks:
       - test
 
-  peer0.org2.example.com:
-    container_name: peer0.org2.example.com
+  peer0.org2.supplychain.com:
+    container_name: peer0.org2.supplychain.com
     image: hyperledger/fabric-peer:$IMAGE_TAG
     environment:
       #Generic peer variables
@@ -114,19 +114,19 @@ services:
       - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
       - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
       # Peer specific variabes
-      - CORE_PEER_ID=peer0.org2.example.com
-      - CORE_PEER_ADDRESS=peer0.org2.example.com:9051
+      - CORE_PEER_ID=peer0.org2.supplychain.com
+      - CORE_PEER_ADDRESS=peer0.org2.supplychain.com:9051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:9051
-      - CORE_PEER_CHAINCODEADDRESS=peer0.org2.example.com:9052
+      - CORE_PEER_CHAINCODEADDRESS=peer0.org2.supplychain.com:9052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:9052
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org2.example.com:9051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org2.example.com:9051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer0.org2.supplychain.com:9051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer0.org2.supplychain.com:9051
       - CORE_PEER_LOCALMSPID=Org2MSP
     volumes:
         - /var/run/docker.sock:/host/var/run/docker.sock
-        - ../organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp:/etc/hyperledger/fabric/msp
-        - ../organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls:/etc/hyperledger/fabric/tls
-        - peer0.org2.example.com:/var/hyperledger/production
+        - ../organizations/peerOrganizations/org2.supplychain.com/peers/peer0.org2.supplychain.com/msp:/etc/hyperledger/fabric/msp
+        - ../organizations/peerOrganizations/org2.supplychain.com/peers/peer0.org2.supplychain.com/tls:/etc/hyperledger/fabric/tls
+        - peer0.org2.supplychain.com:/var/hyperledger/production
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: peer node start
     ports:
@@ -135,8 +135,8 @@ services:
       - test
   
   # my code for add peer1
-  peer1.org1.example.com:
-    container_name: peer1.org1.example.com
+  peer1.org1.supplychain.com:
+    container_name: peer1.org1.supplychain.com
     image: hyperledger/fabric-peer:$IMAGE_TAG
     environment:
       #Generic peer variables
@@ -153,19 +153,19 @@ services:
       - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
       - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
       # Peer specific variabes
-      - CORE_PEER_ID=peer1.org1.example.com
-      - CORE_PEER_ADDRESS=peer1.org1.example.com:11051
+      - CORE_PEER_ID=peer1.org1.supplychain.com
+      - CORE_PEER_ADDRESS=peer1.org1.supplychain.com:11051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:11051
-      - CORE_PEER_CHAINCODEADDRESS=peer1.org1.example.com:11052
+      - CORE_PEER_CHAINCODEADDRESS=peer1.org1.supplychain.com:11052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:11052
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org1.example.com:11051
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org1.example.com:11051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org1.supplychain.com:11051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org1.supplychain.com:11051
       - CORE_PEER_LOCALMSPID=Org1MSP
     volumes:
         - /var/run/docker.sock:/host/var/run/docker.sock
-        - ../organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/msp:/etc/hyperledger/fabric/msp
-        - ../organizations/peerOrganizations/org1.example.com/peers/peer1.org1.example.com/tls:/etc/hyperledger/fabric/tls
-        - peer1.org1.example.com:/var/hyperledger/production
+        - ../organizations/peerOrganizations/org1.supplychain.com/peers/peer1.org1.supplychain.com/msp:/etc/hyperledger/fabric/msp
+        - ../organizations/peerOrganizations/org1.supplychain.com/peers/peer1.org1.supplychain.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.org1.supplychain.com:/var/hyperledger/production
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: peer node start
     ports:
@@ -191,7 +191,7 @@ services:
         - ../organizations:/opt/gopath/src/github.com/hyperledger/fabric/peer/organizations
         - ../scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
     depends_on:
-      - peer0.org1.example.com
-      - peer0.org2.example.com
+      - peer0.org1.supplychain.com
+      - peer0.org2.supplychain.com
     networks:
       - test
