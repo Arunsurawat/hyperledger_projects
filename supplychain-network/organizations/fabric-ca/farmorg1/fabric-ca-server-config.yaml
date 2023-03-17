@@ -237,18 +237,18 @@ ldap:
 # which are always stored in lower case.
 #############################################################################
 affiliations:
-  farmorg1:
+   farmorg1:
       - department1
       - department2
-  manorg2:
+   manorg2:
       - department1
-  wholeOrg3:
+   wholeorg3:
       - department1
-  retailOrg4:
+   retailorg4:
       - department1
-  custOrg5:
+   custorg5:
       - department1
-  
+
 #############################################################################
 #  Signing section
 #

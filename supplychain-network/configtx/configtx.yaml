@@ -43,9 +43,8 @@ Organizations:
 
         OrdererEndpoints:
             - orderer.supplychain.com:7050
-            - orderer.supplychain.com:8050
-            - orderer.supplychain.com:9050
-            
+            - orderer2.supplychain.com:8050
+            - orderer3.supplychain.com:9050
 
     - &FarmOrg1
         # DefaultOrg defines the organization which is used in the sampleconfig
@@ -104,7 +103,7 @@ Organizations:
     - &WholeOrg3
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: WholeOrg3
+        Name: WholeOrg3MSP
 
         # ID to load the MSP definition as
         ID: WholeOrg3MSP
@@ -117,21 +116,21 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('WholeOrg3.admin', 'WholeOrg3.peer', 'WholeOrg3.client')"
+                Rule: "OR('WholeOrg3MSP.admin', 'WholeOrg3MSP.peer', 'WholeOrg3MSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('WholeOrg3.admin', 'WholeOrg3.client')"
+                Rule: "OR('WholeOrg3MSP.admin', 'WholeOrg3MSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('WholeOrg3.admin')"
+                Rule: "OR('WholeOrg3MSP.admin')"
             Endorsement:
                 Type: Signature
-                Rule: "OR('WholeOrg3.peer')"
-                
+                Rule: "OR('WholeOrg3MSP.peer')"
+
     - &RetailOrg4
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: RetailOrg4
+        Name: RetailOrg4MSP
 
         # ID to load the MSP definition as
         ID: RetailOrg4MSP
@@ -144,23 +143,21 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('RetailOrg4.admin', 'RetailOrg4.peer', 'RetailOrg4.client')"
+                Rule: "OR('RetailOrg4MSP.admin', 'RetailOrg4MSP.peer', 'RetailOrg4MSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('RetailOrg4.admin', 'RetailOrg4.client')"
+                Rule: "OR('RetailOrg4MSP.admin', 'RetailOrg4MSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('RetailOrg4.admin')"
+                Rule: "OR('RetailOrg4MSP.admin')"
             Endorsement:
                 Type: Signature
-                Rule: "OR('RetailOrg4.peer')"
-                
-                
+                Rule: "OR('RetailOrg4MSP.peer')"
 
     - &CustOrg5
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: CustOrg5
+        Name: CustOrg5MSP
 
         # ID to load the MSP definition as
         ID: CustOrg5MSP
@@ -173,17 +170,16 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('CustOrg5.admin', 'CustOrg5.peer', 'CustOrg5.client')"
+                Rule: "OR('CustOrg5MSP.admin', 'CustOrg5MSP.peer', 'CustOrg5MSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('CustOrg5.admin', 'CustOrg5.client')"
+                Rule: "OR('CustOrg5MSP.admin', 'CustOrg5MSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('CustOrg5.admin')"
+                Rule: "OR('CustOrg5MSP.admin')"
             Endorsement:
                 Type: Signature
-                Rule: "OR('CustOrg5.peer')"
-
+                Rule: "OR('CustOrg5MSP.peer')"
 
 ################################################################################
 #
@@ -299,7 +295,6 @@ Orderer: &OrdererDefaults
         - orderer.supplychain.com:7050
         - orderer2.supplychain.com:8050
         - orderer3.supplychain.com:9050
-        
 
     EtcdRaft:
         Consenters:
@@ -307,17 +302,14 @@ Orderer: &OrdererDefaults
           Port: 7050
           ClientTLSCert: ../organizations/ordererOrganizations/supplychain.com/orderers/orderer.supplychain.com/tls/server.crt
           ServerTLSCert: ../organizations/ordererOrganizations/supplychain.com/orderers/orderer.supplychain.com/tls/server.crt
-
         - Host: orderer2.supplychain.com
           Port: 8050
           ClientTLSCert: ../organizations/ordererOrganizations/supplychain.com/orderers/orderer2.supplychain.com/tls/server.crt
           ServerTLSCert: ../organizations/ordererOrganizations/supplychain.com/orderers/orderer2.supplychain.com/tls/server.crt
-
         - Host: orderer3.supplychain.com
           Port: 9050
           ClientTLSCert: ../organizations/ordererOrganizations/supplychain.com/orderers/orderer3.supplychain.com/tls/server.crt
           ServerTLSCert: ../organizations/ordererOrganizations/supplychain.com/orderers/orderer3.supplychain.com/tls/server.crt
-
     # Batch Timeout: The amount of time to wait before creating a batch
     BatchTimeout: 2s
 

@@ -6,15 +6,15 @@
 version: '2'
 
 volumes:
-  peer1.org2.supplychain.com:
+  peer1.org2.example.com:
 
 networks:
   test:
 
 services:
 
-  peer1.org2.supplychain.com:
-    container_name: peer1.org2.supplychain.com
+  peer1.org2.example.com:
+    container_name: peer1.org2.example.com
     image: hyperledger/fabric-peer:2.3.0
     environment:
       #Generic peer variables
@@ -31,19 +31,19 @@ services:
       - CORE_PEER_TLS_KEY_FILE=/etc/hyperledger/fabric/tls/server.key
       - CORE_PEER_TLS_ROOTCERT_FILE=/etc/hyperledger/fabric/tls/ca.crt
       # Peer specific variabes
-      - CORE_PEER_ID=peer1.org2.supplychain.com
-      - CORE_PEER_ADDRESS=peer1.org2.supplychain.com:12051
+      - CORE_PEER_ID=peer1.org2.example.com
+      - CORE_PEER_ADDRESS=peer1.org2.example.com:12051
       - CORE_PEER_LISTENADDRESS=0.0.0.0:12051
-      - CORE_PEER_CHAINCODEADDRESS=peer1.org2.supplychain.com:12052
+      - CORE_PEER_CHAINCODEADDRESS=peer1.org2.example.com:12052
       - CORE_PEER_CHAINCODELISTENADDRESS=0.0.0.0:12052
-      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org2.supplychain.com:12051
-      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org2.supplychain.com:12051
+      - CORE_PEER_GOSSIP_BOOTSTRAP=peer1.org2.example.com:12051
+      - CORE_PEER_GOSSIP_EXTERNALENDPOINT=peer1.org2.example.com:12051
       - CORE_PEER_LOCALMSPID=Org2MSP
     volumes:
         - /var/run/:/host/var/run/
-        - ../organizations/peerOrganizations/org2.supplychain.com/peers/peer1.org2.supplychain.com/msp:/etc/hyperledger/fabric/msp
-        - ../organizations/peerOrganizations/org2.supplychain.com/peers/peer1.org2.supplychain.com/tls:/etc/hyperledger/fabric/tls
-        - peer1.org2.supplychain.com:/var/hyperledger/production
+        - ../organizations/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/msp:/etc/hyperledger/fabric/msp
+        - ../organizations/peerOrganizations/org2.example.com/peers/peer1.org2.example.com/tls:/etc/hyperledger/fabric/tls
+        - peer1.org2.example.com:/var/hyperledger/production
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: peer node start
     ports:

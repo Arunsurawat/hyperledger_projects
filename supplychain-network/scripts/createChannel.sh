@@ -37,11 +37,11 @@ createChannel() {
 	while [ $rc -ne 0 -a $COUNTER -lt $MAX_RETRY ] ; do
 		sleep $DELAY
 		set -x
-		osnadmin channel join -c $CHANNEL_NAME --config-block ./channel-artifacts/${CHANNEL_NAME}.block -o localhost:7053 --ca-file "$ORDERER_CA" --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY" >&log.txt
+		osnadmin channel join --channel-id $CHANNEL_NAME --config-block ./channel-artifacts/${CHANNEL_NAME}.block -o localhost:7053 --ca-file "$ORDERER_CA" --client-cert "$ORDERER_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER_ADMIN_TLS_PRIVATE_KEY" >&log.txt
 		infoln "Orderer2 join channel"
-        osnadmin channel join -c $CHANNEL_NAME --config-block ./channel-artifacts/${CHANNEL_NAME}.block -o localhost:8053 --ca-file "$ORDERER_CA" --client-cert "$ORDERER2_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER2_ADMIN_TLS_PRIVATE_KEY" >&log.txt
+        osnadmin channel join --channel-id $CHANNEL_NAME --config-block ./channel-artifacts/${CHANNEL_NAME}.block -o localhost:8053 --ca-file "$ORDERER_CA" --client-cert "$ORDERER2_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER2_ADMIN_TLS_PRIVATE_KEY" >&log.txt
         infoln "Orderer3 join channel"
-        osnadmin channel join -c $CHANNEL_NAME --config-block ./channel-artifacts/${CHANNEL_NAME}.block -o localhost:9053 --ca-file "$ORDERER_CA" --client-cert "$ORDERER3_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER3_ADMIN_TLS_PRIVATE_KEY" >&log.txt
+        osnadmin channel join --channel-id $CHANNEL_NAME --config-block ./channel-artifacts/${CHANNEL_NAME}.block -o localhost:9053 --ca-file "$ORDERER_CA" --client-cert "$ORDERER3_ADMIN_TLS_SIGN_CERT" --client-key "$ORDERER3_ADMIN_TLS_PRIVATE_KEY" >&log.txt
 		res=$?
 		{ set +x; } 2>/dev/null
 		let rc=$res
@@ -97,33 +97,25 @@ joinChannel 1
 
 infoln "Joining manorg2 peer0 to the channel..."
 joinChannel 2
-
 infoln "Joining manorg2 peer1 to the channel..."
 joinChannel 3
 
-infoln "Joining wholeorg3 peer0 to the channel..."
+infoln "Joining WholeOrg3 peer0 to the channel..."
 joinChannel 4
-
-infoln "Joining wholeorg3 peer1 to the channel..."
+infoln "Joining WholeOrg3 peer1 to the channel..."
 joinChannel 5
 
-infoln "Joining retailorg4 peer0 to the channel..."
+infoln "Joining RetailOrg4 peer0 to the channel..."
 joinChannel 6
-
-infoln "Joining retailorg4 peer1 to the channel..."
+infoln "Joining RetailOrg4 peer1 to the channel..."
 joinChannel 7
 
-infoln "Joining custorg5 peer0 to the channel..."
+infoln "Joining CustOrg5 peer0 to the channel..."
 joinChannel 8
 
-#  my code for peer1
-infoln "Joining org1 peer1 to the channel..."
-joinChannel 3
-
 ## Set the anchor peers for each org in the channel
-infoln "Setting anchor peer for formorg1..."
+infoln "Setting anchor peer for farmorg1..."
 setAnchorPeer 1
-
 infoln "Setting anchor peer for manorg2..."
 setAnchorPeer 2
 
@@ -135,6 +127,5 @@ setAnchorPeer 6
 
 infoln "Setting anchor peer for custorg5..."
 setAnchorPeer 8
-
 
 successln "Channel '$CHANNEL_NAME' joined"

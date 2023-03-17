@@ -3,13 +3,12 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-
 # ---------------------------------------------------------------------------
 # "PeerOrgs" - Definition of organizations managing peer nodes
 # ---------------------------------------------------------------------------
 PeerOrgs:
   # ---------------------------------------------------------------------------
-  # Org1
+  # Org2
   # ---------------------------------------------------------------------------
   - Name: CustOrg5
     Domain: custorg5.supplychain.com
@@ -30,6 +29,7 @@ PeerOrgs:
     #                 which obtains its values from the Spec.Hostname and
     #                 Org.Domain, respectively.
     # ---------------------------------------------------------------------------
+    # Specs:
     #   - Hostname: foo # implicitly "foo.org1.supplychain.com"
     #     CommonName: foo27.org5.supplychain.com # overrides Hostname-based FQDN set above
     #   - Hostname: bar

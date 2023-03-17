@@ -237,16 +237,16 @@ ldap:
 # which are always stored in lower case.
 #############################################################################
 affiliations:
-  farmorg1:
+   farmorg1:
       - department1
       - department2
-  manorg2:
+   manorg2:
       - department1
-  wholeOrg3:
+   wholeorg3:
       - department1
-  retailOrg4:
+   retailorg4:
       - department1
-  custOrg5:
+   custorg5:
       - department1
 
 #############################################################################
@@ -307,16 +307,16 @@ signing:
 #     CA certificates though it can still issue end entity certificates.
 ###########################################################################
 csr:
-   cn: ca.org1.supplychain.com
+   cn: ca.manorg2.supplychain.com
    names:
-      - C: US
-        ST: "North Carolina"
-        L: "Durham"
-        O: org1.supplychain.com
+      - C: UK
+        ST: "Hampshire"
+        L: "Hursley"
+        O: manorg2.supplychain.com
         OU:
    hosts:
      - localhost
-     - org1.supplychain.com
+     - manorg2.supplychain.com
    ca:
       expiry: 131400h
       pathlength: 1

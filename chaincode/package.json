@@ -1,7 +1,7 @@
 {
-    "name": "supplyChain",
+    "name": "supplychain",
     "version": "1.0.0",
-    "description": "supplyChain contract implemented in JavaScript",
+    "description": "supplychain contract implemented in JavaScript",
     "main": "index.js",
     "engines": {
         "node": ">=12",
