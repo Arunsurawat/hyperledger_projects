@@ -43,16 +43,19 @@ Organizations:
 
         OrdererEndpoints:
             - orderer.supplychain.com:7050
+            - orderer.supplychain.com:8050
+            - orderer.supplychain.com:9050
+            
 
-    - &Org1
+    - &FarmOrg1
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: Org1MSP
+        Name: FarmOrg1MSP
 
         # ID to load the MSP definition as
-        ID: Org1MSP
+        ID: FarmOrg1MSP
 
-        MSPDir: ../organizations/peerOrganizations/org1.supplychain.com/msp
+        MSPDir: ../organizations/peerOrganizations/farmorg1.supplychain.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -60,26 +63,26 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('Org1MSP.admin', 'Org1MSP.peer', 'Org1MSP.client')"
+                Rule: "OR('FarmOrg1MSP.admin', 'FarmOrg1MSP.peer', 'FarmOrg1MSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('Org1MSP.admin', 'Org1MSP.client')"
+                Rule: "OR('FarmOrg1MSP.admin', 'FarmOrg1MSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('Org1MSP.admin')"
+                Rule: "OR('FarmOrg1MSP.admin')"
             Endorsement:
                 Type: Signature
-                Rule: "OR('Org1MSP.peer')"
+                Rule: "OR('FarmOrg1MSP.peer')"
 
-    - &Org2
+    - &ManOrg2
         # DefaultOrg defines the organization which is used in the sampleconfig
         # of the fabric.git development environment
-        Name: Org2MSP
+        Name: ManOrg2MSP
 
         # ID to load the MSP definition as
-        ID: Org2MSP
+        ID: ManOrg2MSP
 
-        MSPDir: ../organizations/peerOrganizations/org2.supplychain.com/msp
+        MSPDir: ../organizations/peerOrganizations/manorg2.supplychain.com/msp
 
         # Policies defines the set of policies at this level of the config tree
         # For organization policies, their canonical path is usually
@@ -87,16 +90,100 @@ Organizations:
         Policies:
             Readers:
                 Type: Signature
-                Rule: "OR('Org2MSP.admin', 'Org2MSP.peer', 'Org2MSP.client')"
+                Rule: "OR('ManOrg2MSP.admin', 'ManOrg2MSP.peer', 'ManOrg2MSP.client')"
             Writers:
                 Type: Signature
-                Rule: "OR('Org2MSP.admin', 'Org2MSP.client')"
+                Rule: "OR('ManOrg2MSP.admin', 'ManOrg2MSP.client')"
             Admins:
                 Type: Signature
-                Rule: "OR('Org2MSP.admin')"
+                Rule: "OR('ManOrg2MSP.admin')"
             Endorsement:
                 Type: Signature
-                Rule: "OR('Org2MSP.peer')"
+                Rule: "OR('ManOrg2MSP.peer')"
+
+    - &WholeOrg3
+        # DefaultOrg defines the organization which is used in the sampleconfig
+        # of the fabric.git development environment
+        Name: WholeOrg3
+
+        # ID to load the MSP definition as
+        ID: WholeOrg3MSP
+
+        MSPDir: ../organizations/peerOrganizations/wholeorg3.supplychain.com/msp
+
+        # Policies defines the set of policies at this level of the config tree
+        # For organization policies, their canonical path is usually
+        #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('WholeOrg3.admin', 'WholeOrg3.peer', 'WholeOrg3.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('WholeOrg3.admin', 'WholeOrg3.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('WholeOrg3.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('WholeOrg3.peer')"
+                
+    - &RetailOrg4
+        # DefaultOrg defines the organization which is used in the sampleconfig
+        # of the fabric.git development environment
+        Name: RetailOrg4
+
+        # ID to load the MSP definition as
+        ID: RetailOrg4MSP
+
+        MSPDir: ../organizations/peerOrganizations/retailorg4.supplychain.com/msp
+
+        # Policies defines the set of policies at this level of the config tree
+        # For organization policies, their canonical path is usually
+        #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('RetailOrg4.admin', 'RetailOrg4.peer', 'RetailOrg4.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('RetailOrg4.admin', 'RetailOrg4.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('RetailOrg4.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('RetailOrg4.peer')"
+                
+                
+
+    - &CustOrg5
+        # DefaultOrg defines the organization which is used in the sampleconfig
+        # of the fabric.git development environment
+        Name: CustOrg5
+
+        # ID to load the MSP definition as
+        ID: CustOrg5MSP
+
+        MSPDir: ../organizations/peerOrganizations/custorg5.supplychain.com/msp
+
+        # Policies defines the set of policies at this level of the config tree
+        # For organization policies, their canonical path is usually
+        #   /Channel/<Application|Orderer>/<OrgName>/<PolicyName>
+        Policies:
+            Readers:
+                Type: Signature
+                Rule: "OR('CustOrg5.admin', 'CustOrg5.peer', 'CustOrg5.client')"
+            Writers:
+                Type: Signature
+                Rule: "OR('CustOrg5.admin', 'CustOrg5.client')"
+            Admins:
+                Type: Signature
+                Rule: "OR('CustOrg5.admin')"
+            Endorsement:
+                Type: Signature
+                Rule: "OR('CustOrg5.peer')"
+
 
 ################################################################################
 #
@@ -210,6 +297,9 @@ Orderer: &OrdererDefaults
     # to include the OrdererEndpoints item in your org definition
     Addresses:
         - orderer.supplychain.com:7050
+        - orderer2.supplychain.com:8050
+        - orderer3.supplychain.com:9050
+        
 
     EtcdRaft:
         Consenters:
@@ -217,6 +307,16 @@ Orderer: &OrdererDefaults
           Port: 7050
           ClientTLSCert: ../organizations/ordererOrganizations/supplychain.com/orderers/orderer.supplychain.com/tls/server.crt
           ServerTLSCert: ../organizations/ordererOrganizations/supplychain.com/orderers/orderer.supplychain.com/tls/server.crt
+
+        - Host: orderer2.supplychain.com
+          Port: 8050
+          ClientTLSCert: ../organizations/ordererOrganizations/supplychain.com/orderers/orderer2.supplychain.com/tls/server.crt
+          ServerTLSCert: ../organizations/ordererOrganizations/supplychain.com/orderers/orderer2.supplychain.com/tls/server.crt
+
+        - Host: orderer3.supplychain.com
+          Port: 9050
+          ClientTLSCert: ../organizations/ordererOrganizations/supplychain.com/orderers/orderer3.supplychain.com/tls/server.crt
+          ServerTLSCert: ../organizations/ordererOrganizations/supplychain.com/orderers/orderer3.supplychain.com/tls/server.crt
 
     # Batch Timeout: The amount of time to wait before creating a batch
     BatchTimeout: 2s
@@ -301,7 +401,7 @@ Channel: &ChannelDefaults
 ################################################################################
 Profiles:
 
-    TwoOrgsApplicationGenesis:
+    SupplyChainApplicationGenesis:
         <<: *ChannelDefaults
         Orderer:
             <<: *OrdererDefaults
@@ -312,7 +412,10 @@ Profiles:
         Application:
             <<: *ApplicationDefaults
             Organizations:
-                - *Org1
-                - *Org2
+                - *FarmOrg1
+                - *ManOrg2
+                - *WholeOrg3
+                - *RetailOrg4
+                - *CustOrg5
             Capabilities:
                 <<: *ApplicationCapabilities

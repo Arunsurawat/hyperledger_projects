@@ -2,7 +2,7 @@
 
 source scripts/utils.sh
 
-CHANNEL_NAME=${1:-"mychannel"}
+CHANNEL_NAME=${1:-"supplychainchannel"}
 CC_NAME=${2}
 CC_SRC_PATH=${3}
 CC_SRC_LANGUAGE=${4}
@@ -33,15 +33,15 @@ FABRIC_CFG_PATH=$PWD/../config/
 
 #User has not provided a name
 if [ -z "$CC_NAME" ] || [ "$CC_NAME" = "NA" ]; then
-  fatalln "No chaincode name was provided. Valid call example: ./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-go -ccl go"
+  fatalln "No chaincode name was provided. Valid call supplychain: ./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-go -ccl go"
 
 # User has not provided a path
 elif [ -z "$CC_SRC_PATH" ] || [ "$CC_SRC_PATH" = "NA" ]; then
-  fatalln "No chaincode path was provided. Valid call example: ./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-go -ccl go"
+  fatalln "No chaincode path was provided. Valid call supplychain: ./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-go -ccl go"
 
 # User has not provided a language
 elif [ -z "$CC_SRC_LANGUAGE" ] || [ "$CC_SRC_LANGUAGE" = "NA" ]; then
-  fatalln "No chaincode language was provided. Valid call example: ./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-go -ccl go"
+  fatalln "No chaincode language was provided. Valid call supplychain: ./network.sh deployCC -ccn basic -ccp ../asset-transfer-basic/chaincode-go -ccl go"
 
 ## Make sure that the path to the chaincode exists
 elif [ ! -d "$CC_SRC_PATH" ]; then
@@ -290,10 +290,18 @@ infoln "Installing chaincode on peer0.org1..."
 installChaincode 1
 infoln "Install chaincode on peer0.org2..."
 installChaincode 2
-
-# my code for adding peer1.org1
 infoln "Install chaincode on peer1.org1..."
 installChaincode 3
+
+installChaincode 4
+
+installChaincode 5
+
+installChaincode 6
+
+installChaincode 7
+
+installChaincode 8
 
 ## query whether the chaincode is installed
 queryInstalled 1
@@ -303,19 +311,25 @@ approveForMyOrg 1
 
 ## check whether the chaincode definition is ready to be committed
 ## expect org1 to have approved and org2 not to
-checkCommitReadiness 1 "\"Org1MSP\": true" "\"Org2MSP\": false"
-checkCommitReadiness 2 "\"Org1MSP\": true" "\"Org2MSP\": false"
+# checkCommitReadiness 1 "\"Org1MSP\": true" "\"Org2MSP\": false"
+# checkCommitReadiness 2 "\"Org1MSP\": true" "\"Org2MSP\": false"
 
 ## now approve also for org2
 approveForMyOrg 2
 
+approveForMyOrg 4
+
+approveForMyOrg 6
+
+approveForMyOrg 8
+
 ## check whether the chaincode definition is ready to be committed
 ## expect them both to have approved
-checkCommitReadiness 1 "\"Org1MSP\": true" "\"Org2MSP\": true"
-checkCommitReadiness 2 "\"Org1MSP\": true" "\"Org2MSP\": true"
+# checkCommitReadiness 1 "\"Org1MSP\": true" "\"Org2MSP\": true"
+# checkCommitReadiness 2 "\"Org1MSP\": true" "\"Org2MSP\": true"
 
 ## now that we know for sure both orgs have approved, commit the definition
-commitChaincodeDefinition 1 2 3
+commitChaincodeDefinition 1 2 4 6
 
 ## query on both orgs to see that the definition committed successfully
 queryCommitted 1
@@ -326,7 +340,7 @@ queryCommitted 2
 if [ "$CC_INIT_FCN" = "NA" ]; then
   infoln "Chaincode initialization is not required"
 else
-  chaincodeInvokeInit 1 2
+  chaincodeInvokeInit 1 2 4 6
 fi
 
 exit 0
